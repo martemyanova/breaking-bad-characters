@@ -1,6 +1,10 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
-    ext.kotlin_version = "1.4.20"
+    ext {
+        kotlin_version = '1.4.31'
+        coroutines_version = '1.4.2'
+        dagger_version = '2.28.1'
+    }
     repositories {
         google()
         jcenter()
