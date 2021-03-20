@@ -12,6 +12,6 @@ data class CharacterSchema(
     @SerializedName("nickname") val nickname: String,
     @SerializedName("appearance") val appearance: Array<Int>,
     @SerializedName("portrayed") val portrayed: String,
-    @SerializedName("category") val category: Int,
+    @SerializedName("category") val category: String,
     @SerializedName("better_call_saul_appearance") val betterCallSaulAppearance: Array<Int>
 )

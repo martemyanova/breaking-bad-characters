@@ -25,7 +25,7 @@ class DataModule {
         retrofit.create(RemoteSourceApi::class.java)
 
     @Provides
-    fun remoteDataSource(remoteSourceApi: RemoteSourceApi) =
+    fun remoteDataSource(remoteSourceApi: RemoteSourceApi): RemoteDataSource =
         DefaultRemoteDataSource(remoteSourceApi)
 
     @Provides
