@@ -1,14 +1,22 @@
 package com.techtask.breakingbadcharacters
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.techtask.breakingbadcharacters.common.di.BaseActivity
+import androidx.navigation.findNavController
+import androidx.navigation.ui.NavigationUI
+import com.techtask.breakingbadcharacters.common.BaseActivity
 
 class MainActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        injector.inject(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        NavigationUI.setupActionBarWithNavController(this, navController)
+    }
+
+    private val navController get() = findNavController(R.id.navHostFragment)
+
+    override fun onSupportNavigateUp(): Boolean {
+        return navController.navigateUp()
     }
 }
