@@ -2,7 +2,7 @@ package com.techtask.breakingbadcharacters.data.remote.api.schema
 
 import com.google.gson.annotations.SerializedName
 
-data class CharacterSchema(
+class CharacterSchema(
     @SerializedName("char_id") val id: Int,
     @SerializedName("name") val name: String,
     @SerializedName("birthday") val birthday: String,
