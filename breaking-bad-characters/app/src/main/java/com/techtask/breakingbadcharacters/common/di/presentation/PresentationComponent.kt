@@ -5,7 +5,7 @@ import com.techtask.breakingbadcharacters.presentation.characterslist.Characters
 import dagger.Subcomponent
 
 @PresentationScope
-@Subcomponent
+@Subcomponent(modules = [ViewModelModule::class])
 interface PresentationComponent {
     fun inject(fragment: CharactersListFragment)
     fun inject(fragment: CharacterDetailsFragment)
