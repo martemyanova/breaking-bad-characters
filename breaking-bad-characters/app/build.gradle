@@ -41,6 +41,7 @@ ext {
 }
 
 dependencies {
+    api project(":common")
     api project(":domain")
     api project(":data")
 
