@@ -1,34 +1,37 @@
 package com.techtask.breakingbadcharacters.presentation.characterslist
 
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.TextView
-import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.techtask.breakingbadcharacters.R
 import com.techtask.breakingbadcharacters.common.BaseFragment
-import com.techtask.breakingbadcharacters.domain.result.Result
-import com.techtask.breakingbadcharacters.domain.usecase.GetAllCharactersUseCase
+import com.techtask.breakingbadcharacters.common.viewmodel.ViewModelFactory
 import com.techtask.breakingbadcharacters.presentation.characterdetails.CharacterDetailsFragment
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import java.net.URL
+import com.techtask.breakingbadcharacters.presentation.characterslist.CharacterListViewModel.State
+import com.techtask.breakingbadcharacters.presentation.characterslist.ui.CharactersListUIComponent
 import javax.inject.Inject
 
 class CharactersListFragment : BaseFragment() {
 
     @Inject
-    lateinit var getAllCharactersUseCase: GetAllCharactersUseCase
+    lateinit var viewModelFactory: ViewModelFactory
+
+    lateinit var viewModel: CharacterListViewModel
+
+    private lateinit var uiComponent: CharactersListUIComponent
 
     override fun onCreate(savedInstanceState: Bundle?) {
         injector.inject(this)
         super.onCreate(savedInstanceState)
+
+        viewModel = ViewModelProvider(requireActivity(), viewModelFactory)
+            .get(CharacterListViewModel::class.java)
+
+        uiComponent = CharactersListUIComponent()
     }
 
     override fun onCreateView(
@@ -36,7 +39,7 @@ class CharactersListFragment : BaseFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.screen_characters_list, container, false)
+        return uiComponent.inflate(inflater, container)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -48,31 +51,18 @@ class CharactersListFragment : BaseFragment() {
                 CharacterDetailsFragment.Arguments(1).toBundle())
         }
 
-        lifecycleScope.launch(Dispatchers.IO) {
-            getAllCharactersUseCase.execute().apply {
-                when (this) {
-                    is Result.Success -> {
-                        val data = this.data[0]
-
-                        val url = URL(data.imageUrl)
-                        val bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream())
-
-                        updateContent(view, data.name, bmp)
-                    }
-                    is Result.Failure -> {
-                        updateContent(view, "Failed to retrieve data! ${this.exception}")
-                    }
+        with (viewModel) {
+            characters.observe(viewLifecycleOwner) { data ->
+                data?.let { uiComponent.bindData(it) }
+            }
+            state.observe(viewLifecycleOwner) { state ->
+                when (state) {
+//                    State.LOADING -> TODO()
+//                    State.DATA_READY -> TODO()
+//                    State.FAILURE -> TODO()
                 }
             }
-        }
-    }
-
-    private suspend fun updateContent(view: View, data: String, bmp: Bitmap? = null) {
-        withContext(Dispatchers.Main) {
-            view.findViewById<TextView>(R.id.tv_content).text = data
-            bmp?.let {
-                view.findViewById<ImageView>(R.id.iv_image).setImageBitmap(bmp)
-            }
+            load()
         }
     }
 }
