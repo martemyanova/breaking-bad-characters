@@ -1,4 +1,6 @@
 <resources>
     <string name="app_name">Breaking Bad characters</string>
     <string name="character_details_screen_caption">Character details</string>
+    <string name="character_image_content_description">Character image</string>
+    <string name="image_loading">Image loading…</string>
 </resources>
