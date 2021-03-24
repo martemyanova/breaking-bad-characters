@@ -73,4 +73,6 @@ dependencies {
     implementation "androidx.constraintlayout:constraintlayout:$constraintLayoutVersion"
     implementation "androidx.recyclerview:recyclerview:$androidxVersion"
     implementation "androidx.core:core-ktx:$ktxVersion"
+
+    implementation 'com.github.bumptech.glide:glide:4.11.0'
 }
