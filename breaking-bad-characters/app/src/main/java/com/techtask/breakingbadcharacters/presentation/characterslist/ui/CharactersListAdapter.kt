@@ -9,7 +9,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.techtask.breakingbadcharacters.R
 import com.techtask.breakingbadcharacters.common.imageloader.load
 
-class CharactersListAdapter : RecyclerView.Adapter<CharactersListAdapter.CharacterViewHolder>() {
+class CharactersListAdapter(
+    private val onItemSelected: (itemId: Int) -> Unit
+) : RecyclerView.Adapter<CharactersListAdapter.CharacterViewHolder>() {
 
     private var charactersList: List<CharacterUIModel> = emptyList()
     private val itemLayoutId = R.layout.list_item_characters_list
@@ -25,6 +27,9 @@ class CharactersListAdapter : RecyclerView.Adapter<CharactersListAdapter.Charact
         with (holder) {
             nameTextView.text = character.name
             imageView.load(character.imageUrl)
+            imageView.setOnClickListener {
+                onItemSelected(character.id)
+            }
         }
     }
 

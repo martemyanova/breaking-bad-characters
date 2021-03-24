@@ -33,7 +33,7 @@ class CharactersListFragment : BaseFragment() {
         viewModel = ViewModelProvider(requireActivity(), viewModelFactory)
             .get(CharacterListViewModel::class.java)
 
-        uiComponent = CharactersListUIComponent()
+        uiComponent = CharactersListUIComponent(::onCharacterSelected)
     }
 
     override fun onCreateView(
@@ -65,7 +65,7 @@ class CharactersListFragment : BaseFragment() {
         }
     }
 
-    private fun onCharacterSelected(characterId: Int = 1) {
+    private fun onCharacterSelected(characterId: Int) {
         view?.let {
             findNavController().navigate(
                 R.id.action_charactersListFragment_to_characterDetailsFragment,

@@ -7,8 +7,9 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.techtask.breakingbadcharacters.R
 
-class CharactersListUIComponent {
-
+class CharactersListUIComponent(
+    private val onCharacterSelected: (characterId: Int) -> Unit
+) {
     private val layoutId = R.layout.screen_characters_list
 
     private lateinit var rootView: View
@@ -27,7 +28,7 @@ class CharactersListUIComponent {
     private fun setupRecyclerView() {
         contentRecyclerView.apply {
             layoutManager = GridLayoutManager(context, numberOfColumns)
-            charactersListAdapter = CharactersListAdapter()
+            charactersListAdapter = CharactersListAdapter(onCharacterSelected)
             adapter = charactersListAdapter
         }
     }
