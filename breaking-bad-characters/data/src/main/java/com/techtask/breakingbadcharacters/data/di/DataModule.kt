@@ -5,6 +5,7 @@ import com.techtask.breakingbadcharacters.data.remote.RemoteDataSource
 import com.techtask.breakingbadcharacters.data.remote.api.RemoteSourceApi
 import com.techtask.breakingbadcharacters.data.repository.DefaultCharactersRepository
 import com.techtask.breakingbadcharacters.domain.repository.CharactersRepository
+import com.techtask.common.CoroutineDispatcherProvider
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit
@@ -25,8 +26,11 @@ class DataModule {
         retrofit.create(RemoteSourceApi::class.java)
 
     @Provides
-    fun remoteDataSource(remoteSourceApi: RemoteSourceApi): RemoteDataSource =
-        DefaultRemoteDataSource(remoteSourceApi)
+    fun remoteDataSource(
+        remoteSourceApi: RemoteSourceApi,
+        coroutineDispatcherProvider: CoroutineDispatcherProvider
+    ): RemoteDataSource =
+        DefaultRemoteDataSource(remoteSourceApi, coroutineDispatcherProvider)
 
     @Provides
     fun charactersRepository(remoteDataSource: RemoteDataSource): CharactersRepository =

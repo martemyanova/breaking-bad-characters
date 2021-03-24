@@ -4,15 +4,16 @@ import com.techtask.breakingbadcharacters.data.remote.api.RemoteSourceApi
 import com.techtask.breakingbadcharacters.data.remote.api.schema.CharacterSchema
 import com.techtask.breakingbadcharacters.domain.model.Character
 import com.techtask.breakingbadcharacters.domain.result.Result
-import kotlinx.coroutines.Dispatchers
+import com.techtask.common.CoroutineDispatcherProvider
 import kotlinx.coroutines.withContext
 
 class DefaultRemoteDataSource(
-    private val remoteSourceApi: RemoteSourceApi
+    private val remoteSourceApi: RemoteSourceApi,
+    private val coroutineDispatcherProvider: CoroutineDispatcherProvider
 ) : RemoteDataSource {
 
     override suspend fun getAllCharacters(): Result<List<Character>> {
-        return withContext(Dispatchers.IO) {
+        return withContext(coroutineDispatcherProvider.io) {
             try {
                 val response = remoteSourceApi.getAllCharacters()
                 val charactersData = response.body()
