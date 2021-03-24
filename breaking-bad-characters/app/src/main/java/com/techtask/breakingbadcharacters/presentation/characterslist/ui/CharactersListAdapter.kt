@@ -7,6 +7,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.techtask.breakingbadcharacters.R
+import com.techtask.breakingbadcharacters.common.imageloader.load
 
 class CharactersListAdapter : RecyclerView.Adapter<CharactersListAdapter.CharacterViewHolder>() {
 
@@ -23,6 +24,7 @@ class CharactersListAdapter : RecyclerView.Adapter<CharactersListAdapter.Charact
         val character = charactersList[position]
         with (holder) {
             nameTextView.text = character.name
+            imageView.load(character.imageUrl)
         }
     }
 
