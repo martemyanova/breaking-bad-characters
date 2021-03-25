@@ -8,6 +8,13 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
+    <color name="teal_ligt">#FF39796B</color>
+    <color name="teal_medium">#FF004D40</color>
+    <color name="teal_dark">#FF00251A</color>
+    <color name="lime_light">#FFF5fD67</color>
+    <color name="lime_medium">#FFC0CA33</color>
+    <color name="lime_dark">#FF8C9900</color>
+
     <color name="screen_background_light_grey">#FFF2F2F2</color>
     <color name="medium_grey">#FF868686</color>
 </resources>
