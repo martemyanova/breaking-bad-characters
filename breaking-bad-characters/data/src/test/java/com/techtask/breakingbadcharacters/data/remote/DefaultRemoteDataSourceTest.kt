@@ -8,8 +8,6 @@ import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
-import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.Assertions.assertTrue
 
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertAll
@@ -17,6 +15,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.net.ssl.HttpsURLConnection
 import com.techtask.breakingbadcharacters.domain.result.Result
+import org.junit.jupiter.api.Assertions.*
 
 internal class DefaultRemoteDataSourceTest {
 
@@ -74,6 +73,10 @@ internal class DefaultRemoteDataSourceTest {
             { assertEquals(1, actual.size) },
             { assertEquals(1, actualData.id) },
             { assertEquals("Walter White", actualData.name) },
+            { assertEquals("09-07-1958", actualData.birthday) },
+            { assertArrayEquals(
+                arrayOf("High School Chemistry Teacher", "Meth King Pin"),
+                actualData.occupation.toTypedArray()) },
             { assertEquals(
                 "https://images.amcnetworks.com/amc.com/wp-content/uploads/2015/04/cast_bb_700x1000_walter-white-lg.jpg",
                 actualData.imageUrl) }

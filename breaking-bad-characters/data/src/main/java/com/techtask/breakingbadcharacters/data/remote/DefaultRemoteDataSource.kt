@@ -38,6 +38,14 @@ class DefaultRemoteDataSource(
         Character(
             id = this.id,
             name = this.name,
-            imageUrl = this.imageUrl
+            imageUrl = this.imageUrl,
+            birthday = this.birthday,
+            occupation = this.occupation,
+            status = this.status,
+            nickname = this.nickname,
+            appearance = this.appearance,
+            portrayed = this.portrayed,
+            category = this.category,
+            betterCallSaulAppearance = this.betterCallSaulAppearance
         )
 }
