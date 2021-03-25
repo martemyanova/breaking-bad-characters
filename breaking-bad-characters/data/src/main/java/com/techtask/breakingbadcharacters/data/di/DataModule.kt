@@ -1,5 +1,7 @@
 package com.techtask.breakingbadcharacters.data.di
 
+import com.techtask.breakingbadcharacters.data.cache.InMemoryDataSource
+import com.techtask.breakingbadcharacters.data.cache.LocalDataSource
 import com.techtask.breakingbadcharacters.data.remote.datasource.DefaultRemoteDataSource
 import com.techtask.breakingbadcharacters.data.remote.datasource.RemoteDataSource
 import com.techtask.breakingbadcharacters.data.remote.api.RemoteSourceApi
@@ -33,6 +35,12 @@ class DataModule {
         DefaultRemoteDataSource(remoteSourceApi, coroutineDispatcherProvider)
 
     @Provides
-    fun charactersRepository(remoteDataSource: RemoteDataSource): CharactersRepository =
-        DefaultCharactersRepository(remoteDataSource)
+    fun localDataSource(): LocalDataSource = InMemoryDataSource()
+
+    @Provides
+    fun charactersRepository(
+        remoteDataSource: RemoteDataSource,
+        localDataSource: LocalDataSource
+    ): CharactersRepository =
+        DefaultCharactersRepository(remoteDataSource, localDataSource)
 }
