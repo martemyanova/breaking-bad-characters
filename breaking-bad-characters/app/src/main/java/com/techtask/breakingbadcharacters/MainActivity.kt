@@ -1,22 +1,82 @@
 package com.techtask.breakingbadcharacters
 
+import android.app.SearchManager
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.widget.SearchView
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.techtask.breakingbadcharacters.common.BaseActivity
+import com.techtask.breakingbadcharacters.common.viewmodel.ViewModelFactory
+import com.techtask.breakingbadcharacters.presentation.characterslist.viewmodel.CharacterListViewModel
+import javax.inject.Inject
 
 class MainActivity : BaseActivity() {
 
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
+
+    lateinit var viewModel: CharacterListViewModel
+
+    private var optionsMenu: Menu? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
+        injector.inject(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        viewModel = ViewModelProvider(this, viewModelFactory)
+            .get(CharacterListViewModel::class.java)
+
         NavigationUI.setupActionBarWithNavController(this, navController)
+
+        handleIntent(intent)
     }
 
     private val navController get() = findNavController(R.id.navHostFragment)
 
     override fun onSupportNavigateUp(): Boolean {
         return navController.navigateUp()
+    }
+
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        handleIntent(intent)
+    }
+
+    private fun handleIntent(intent: Intent?) {
+        if (Intent.ACTION_SEARCH == intent?.action) {
+            val query = intent.getStringExtra(SearchManager.QUERY)
+            query?.let {
+                viewModel.onSearchRequest(it)
+            }
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        optionsMenu = menu
+        menuInflater.inflate(R.menu.menu_main, menu)
+
+        val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
+        (menu.findItem(R.id.menu_search)?.actionView as SearchView).apply {
+            setSearchableInfo(searchManager.getSearchableInfo(componentName))
+            isIconifiedByDefault = false
+        }
+
+        return true
+    }
+
+    override fun onSearchRequested(): Boolean {
+        optionsMenu?.findItem(R.id.menu_search)?.apply {
+            if (isActionViewExpanded) {
+                collapseActionView()
+            } else {
+                expandActionView()
+            }
+        }
+        return super.onSearchRequested()
     }
 }

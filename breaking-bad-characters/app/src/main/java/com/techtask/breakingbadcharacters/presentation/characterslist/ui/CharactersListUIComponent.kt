@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.techtask.breakingbadcharacters.R
 import com.techtask.breakingbadcharacters.presentation.characterslist.ui.adapter.CharactersListAdapter
 import com.techtask.breakingbadcharacters.presentation.characterslist.viewmodel.CharacterListViewState
+import com.techtask.breakingbadcharacters.presentation.characterslist.viewmodel.CharacterListViewState.*
 import com.techtask.breakingbadcharacters.presentation.characterslist.viewmodel.CharacterUIModel
 
 class CharactersListUIComponent(
@@ -39,10 +40,11 @@ class CharactersListUIComponent(
     }
 
     fun updateState(state: CharacterListViewState) {
-        contentRecyclerView.isVisible = state == CharacterListViewState.DATA_READY
-        progressBarView.isVisible = state == CharacterListViewState.LOADING
-        errorMessageTextView.isVisible = state == CharacterListViewState.FAILURE
-        reloadButton.isVisible = state == CharacterListViewState.FAILURE
+        contentRecyclerView.isVisible = state == DATA_READY
+        progressBarView.isVisible = state == LOADING
+        errorMessageTextView.isVisible = state == FAILURE
+        reloadButton.isVisible = state == FAILURE
+        nothingFoundMessageTextView.isVisible = state == NOTHING_WAS_FOUND
     }
 
     private fun setupRecyclerView() {
@@ -71,4 +73,6 @@ class CharactersListUIComponent(
         rootView.findViewById<TextView>(R.id.tv_error_message) }
     private val reloadButton by lazy {
         rootView.findViewById<Button>(R.id.bt_reload) }
+    private val nothingFoundMessageTextView by lazy {
+        rootView.findViewById<TextView>(R.id.tv_nothing_was_found_message) }
 }
