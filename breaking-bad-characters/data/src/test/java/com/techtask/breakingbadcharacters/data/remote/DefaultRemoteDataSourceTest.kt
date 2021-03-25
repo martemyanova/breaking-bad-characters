@@ -1,6 +1,7 @@
 package com.techtask.breakingbadcharacters.data.remote
 
 import com.techtask.breakingbadcharacters.data.remote.api.RemoteSourceApi
+import com.techtask.breakingbadcharacters.data.remote.datasource.DefaultRemoteDataSource
 import com.techtask.breakingbadcharacters.data.util.TestFileUtils
 import com.techtask.breakingbadcharacters.data.util.testingCoroutineDispatcherProvider
 import kotlinx.coroutines.runBlocking

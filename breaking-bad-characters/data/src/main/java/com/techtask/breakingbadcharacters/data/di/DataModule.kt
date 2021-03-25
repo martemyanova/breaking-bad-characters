@@ -1,7 +1,7 @@
 package com.techtask.breakingbadcharacters.data.di
 
-import com.techtask.breakingbadcharacters.data.remote.DefaultRemoteDataSource
-import com.techtask.breakingbadcharacters.data.remote.RemoteDataSource
+import com.techtask.breakingbadcharacters.data.remote.datasource.DefaultRemoteDataSource
+import com.techtask.breakingbadcharacters.data.remote.datasource.RemoteDataSource
 import com.techtask.breakingbadcharacters.data.remote.api.RemoteSourceApi
 import com.techtask.breakingbadcharacters.data.repository.DefaultCharactersRepository
 import com.techtask.breakingbadcharacters.domain.repository.CharactersRepository

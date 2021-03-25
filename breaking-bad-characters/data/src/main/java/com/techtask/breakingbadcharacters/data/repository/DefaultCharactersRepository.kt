@@ -1,6 +1,6 @@
 package com.techtask.breakingbadcharacters.data.repository
 
-import com.techtask.breakingbadcharacters.data.remote.RemoteDataSource
+import com.techtask.breakingbadcharacters.data.remote.datasource.RemoteDataSource
 import com.techtask.breakingbadcharacters.domain.model.Character
 import com.techtask.breakingbadcharacters.domain.repository.CharactersRepository
 import com.techtask.breakingbadcharacters.domain.result.Result

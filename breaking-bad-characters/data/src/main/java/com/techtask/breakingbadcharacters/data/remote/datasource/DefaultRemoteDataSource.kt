@@ -1,4 +1,4 @@
-package com.techtask.breakingbadcharacters.data.remote
+package com.techtask.breakingbadcharacters.data.remote.datasource
 
 import com.techtask.breakingbadcharacters.data.remote.api.RemoteSourceApi
 import com.techtask.breakingbadcharacters.data.remote.api.schema.CharacterSchema
