@@ -3,7 +3,7 @@ package com.techtask.breakingbadcharacters.common.di.presentation
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.techtask.breakingbadcharacters.common.viewmodel.ViewModelFactory
-import com.techtask.breakingbadcharacters.presentation.characterslist.CharacterListViewModel
+import com.techtask.breakingbadcharacters.presentation.characterslist.viewmodel.CharacterListViewModel
 import dagger.Binds
 import dagger.MapKey
 import dagger.Module

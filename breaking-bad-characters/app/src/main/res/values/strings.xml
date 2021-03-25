@@ -3,4 +3,6 @@
     <string name="character_details_screen_caption">Character details</string>
     <string name="character_image_content_description">Character image</string>
     <string name="image_loading">Image loading…</string>
+    <string name="loading_error_message">Oops, something went wrong. Please try to reload.</string>
+    <string name="reload_button">Reload</string>
 </resources>

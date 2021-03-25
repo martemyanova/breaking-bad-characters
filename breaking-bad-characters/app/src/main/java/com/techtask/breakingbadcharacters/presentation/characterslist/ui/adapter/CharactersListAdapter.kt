@@ -1,4 +1,4 @@
-package com.techtask.breakingbadcharacters.presentation.characterslist.ui
+package com.techtask.breakingbadcharacters.presentation.characterslist.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.techtask.breakingbadcharacters.R
 import com.techtask.breakingbadcharacters.common.imageloader.load
+import com.techtask.breakingbadcharacters.presentation.characterslist.viewmodel.CharacterUIModel
 
 class CharactersListAdapter(
     private val onItemSelected: (itemId: Int) -> Unit

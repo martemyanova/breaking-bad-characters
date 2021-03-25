@@ -3,12 +3,20 @@ package com.techtask.breakingbadcharacters.presentation.characterslist.ui
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.ProgressBar
+import android.widget.TextView
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.techtask.breakingbadcharacters.R
+import com.techtask.breakingbadcharacters.presentation.characterslist.ui.adapter.CharactersListAdapter
+import com.techtask.breakingbadcharacters.presentation.characterslist.viewmodel.CharacterListViewState
+import com.techtask.breakingbadcharacters.presentation.characterslist.viewmodel.CharacterUIModel
 
 class CharactersListUIComponent(
-    private val onCharacterSelected: (characterId: Int) -> Unit
+    private val onCharacterSelected: (characterId: Int) -> Unit,
+    private val onReloadClicked: () -> Unit
 ) {
     private val layoutId = R.layout.screen_characters_list
 
@@ -23,6 +31,18 @@ class CharactersListUIComponent(
 
     fun onViewCreated() {
         setupRecyclerView()
+        setupCTA()
+    }
+
+    fun bindData(data: List<CharacterUIModel>) {
+        charactersListAdapter.submitData(data)
+    }
+
+    fun updateState(state: CharacterListViewState) {
+        contentRecyclerView.isVisible = state == CharacterListViewState.DATA_READY
+        progressBarView.isVisible = state == CharacterListViewState.LOADING
+        errorMessageTextView.isVisible = state == CharacterListViewState.FAILURE
+        reloadButton.isVisible = state == CharacterListViewState.FAILURE
     }
 
     private fun setupRecyclerView() {
@@ -33,8 +53,10 @@ class CharactersListUIComponent(
         }
     }
 
-    fun bindData(data: List<CharacterUIModel>) {
-        charactersListAdapter.submitData(data)
+    private fun setupCTA() {
+        reloadButton.setOnClickListener {
+            onReloadClicked()
+        }
     }
 
     private val context by lazy { rootView.context }
@@ -42,6 +64,11 @@ class CharactersListUIComponent(
         R.integer.character_list_screen_number_of_columns) }
 
     private val contentRecyclerView by lazy {
-        rootView.findViewById<RecyclerView>(R.id.rv_characters)
-    }
+        rootView.findViewById<RecyclerView>(R.id.rv_characters) }
+    private val progressBarView by lazy {
+        rootView.findViewById<ProgressBar>(R.id.pb_progress_bar) }
+    private val errorMessageTextView by lazy {
+        rootView.findViewById<TextView>(R.id.tv_error_message) }
+    private val reloadButton by lazy {
+        rootView.findViewById<Button>(R.id.bt_reload) }
 }

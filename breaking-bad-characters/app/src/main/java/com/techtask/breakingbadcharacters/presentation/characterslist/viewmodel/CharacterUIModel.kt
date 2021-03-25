@@ -1,4 +1,4 @@
-package com.techtask.breakingbadcharacters.presentation.characterslist.ui
+package com.techtask.breakingbadcharacters.presentation.characterslist.viewmodel
 
 data class CharacterUIModel(
     val id: Int,
