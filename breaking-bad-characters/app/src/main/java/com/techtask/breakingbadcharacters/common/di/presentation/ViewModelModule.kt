@@ -3,6 +3,7 @@ package com.techtask.breakingbadcharacters.common.di.presentation
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.techtask.breakingbadcharacters.common.viewmodel.ViewModelFactory
+import com.techtask.breakingbadcharacters.presentation.characterdetails.CharacterDetailsViewModel
 import com.techtask.breakingbadcharacters.presentation.characterslist.viewmodel.CharacterListViewModel
 import dagger.Binds
 import dagger.MapKey
@@ -20,6 +21,11 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(CharacterListViewModel::class)
     abstract fun characterListViewModel(viewModel: CharacterListViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(CharacterDetailsViewModel::class)
+    abstract fun characterDetailsViewModel(viewModel: CharacterDetailsViewModel): ViewModel
 }
 
 
