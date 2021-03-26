@@ -1,4 +1,4 @@
-package com.techtask.breakingbadcharacters.common.di.app
+package com.techtask.common
 
 import javax.inject.Scope
 
