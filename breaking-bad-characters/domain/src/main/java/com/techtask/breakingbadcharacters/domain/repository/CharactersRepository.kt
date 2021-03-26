@@ -6,4 +6,6 @@ import com.techtask.breakingbadcharacters.domain.result.Result
 interface CharactersRepository {
 
     suspend fun getAllCharacters(): Result<List<Character>>
+
+    suspend fun getCharacterById(id: Int): Result<Character>
 }

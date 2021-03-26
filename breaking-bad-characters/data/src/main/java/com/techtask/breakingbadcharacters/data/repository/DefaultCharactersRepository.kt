@@ -25,4 +25,13 @@ class DefaultCharactersRepository(
                 }
         }
     }
+
+    override suspend fun getCharacterById(id: Int): Result<Character> {
+        val cachedCharacter = localDataSource.getCharacterById(id)
+        return if (cachedCharacter != null) {
+            Result.Success(cachedCharacter)
+        } else {
+            Result.Failure()
+        }
+    }
 }

@@ -9,20 +9,23 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Assertions.*
 
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.extension.ExtendWith
+import org.mockito.InjectMocks
+import org.mockito.Mock
 import org.mockito.Mockito.*
+import org.mockito.junit.jupiter.MockitoExtension
 
-
+@ExtendWith(MockitoExtension::class)
 internal class DefaultCharactersRepositoryTest {
 
+    @InjectMocks
     private lateinit var SUT: DefaultCharactersRepository
 
-    private val remoteDataSource = mock(RemoteDataSource::class.java)
-    private val localDataSource = mock(LocalDataSource::class.java)
+    @Mock
+    private lateinit var remoteDataSource: RemoteDataSource
+    @Mock
+    private lateinit var localDataSource: LocalDataSource
 
-    @BeforeEach
-    fun setUp() {
-        SUT = DefaultCharactersRepository(remoteDataSource, localDataSource)
-    }
 
     @Test
     fun `GIVEN no data cached in local data source WHEN executed THEN remote data source method called`() = runBlockingTest {
