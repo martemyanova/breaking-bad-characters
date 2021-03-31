@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.TextView
+import androidx.appcompat.widget.Toolbar
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -24,6 +25,8 @@ class CharactersListUIComponent(
     private lateinit var rootView: View
 
     private lateinit var charactersListAdapter: CharactersListAdapter
+
+    val toolbar: Toolbar get() = rootView.findViewById(R.id.toolbar)
 
     fun inflate(inflater: LayoutInflater, container: ViewGroup?): View {
         rootView = inflater.inflate(layoutId, container, false)

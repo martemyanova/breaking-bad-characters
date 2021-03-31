@@ -1,21 +1,30 @@
 package com.techtask.breakingbadcharacters.presentation.characterdetails
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.techtask.breakingbadcharacters.R
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.ui.NavigationUI
 import com.techtask.breakingbadcharacters.common.BaseFragment
+import com.techtask.breakingbadcharacters.common.viewmodel.ViewModelFactory
+import javax.inject.Inject
 
 class CharacterDetailsFragment : BaseFragment() {
+
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
+
+    lateinit var viewModel: CharacterDetailsViewModel
+
+    private lateinit var uiComponent: CharacterDetailsUIComponent
 
     override fun onCreate(savedInstanceState: Bundle?) {
         injector.inject(this)
         super.onCreate(savedInstanceState)
 
-        val characterId = Arguments.fromBundle(arguments).characterId
-        Log.d("BreakingBad", "characterId: $characterId")
+        viewModel = ViewModelProvider(requireActivity(), viewModelFactory)
+            .get(CharacterDetailsViewModel::class.java)
     }
 
     override fun onCreateView(
@@ -23,7 +32,25 @@ class CharacterDetailsFragment : BaseFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.screen_character_details, container, false)
+        uiComponent = CharacterDetailsUIComponent()
+        return uiComponent.inflate(inflater, container)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        navController?.let {
+            NavigationUI.setupWithNavController(uiComponent.toolbar, it)
+        }
+
+        val characterId = Arguments.fromBundle(arguments).characterId
+
+        with (viewModel) {
+            details.observe(viewLifecycleOwner) { details ->
+                details?.let { uiComponent.bindData(it) }
+            }
+            loadData(characterId)
+        }
     }
 
     data class Arguments(val characterId: Int) {
