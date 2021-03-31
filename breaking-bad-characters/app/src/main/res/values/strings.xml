@@ -8,4 +8,8 @@
     <string name="search_hint">Search characters by name</string>
     <string name="menu_action_search">Search</string>
     <string name="nothing_was_found_message">Nothing was found.</string>
+    <string name="details_title_name">Name</string>
+    <string name="details_title_bithday">Birthday</string>
+    <string name="details_title_occupation">Occupation</string>
+    <string name="details_title_appearance">Season appearance</string>
 </resources>

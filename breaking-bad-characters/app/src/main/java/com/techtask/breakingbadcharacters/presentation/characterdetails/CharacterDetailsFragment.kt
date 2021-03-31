@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.ui.NavigationUI
 import com.techtask.breakingbadcharacters.common.BaseFragment
 import com.techtask.breakingbadcharacters.common.viewmodel.ViewModelFactory
+import com.techtask.breakingbadcharacters.presentation.characterdetails.ui.CharacterDetailsUIComponent
 import javax.inject.Inject
 
 class CharacterDetailsFragment : BaseFragment() {
@@ -42,6 +43,8 @@ class CharacterDetailsFragment : BaseFragment() {
         navController?.let {
             NavigationUI.setupWithNavController(uiComponent.toolbar, it)
         }
+
+        uiComponent.onViewCreated()
 
         val characterId = Arguments.fromBundle(arguments).characterId
 

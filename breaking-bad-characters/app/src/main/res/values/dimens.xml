@@ -4,4 +4,5 @@
     <dimen name="character_list_image_height">260dp</dimen>
     <dimen name="character_list_card_margin">6dp</dimen>
     <dimen name="character_list_item_padding">6dp</dimen>
+    <dimen name="character_details_app_bar_height">460dp</dimen>
 </resources>
